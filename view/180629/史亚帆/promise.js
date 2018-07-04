@@ -167,5 +167,78 @@ asyncReadFile.then(data=>{
 
 
 
+//Promise的内部实现  https://www.cnblogs.com/huansky/p/6064402.html
+
+
+//初步构建
+function Promise(fn){
+    var callBack;
+
+    this.then = function(done){
+        callBack = done;
+    }
+
+    function resolve(){
+        callBack();
+    }
+
+    fn(resolve);
+}
+
+//加入链式支持
+function Promise(fn){
+    var promise = this,
+        value = null;
+        promise._resolves = [];
+
+    this.then = function(onFulfilled){
+        promise._resolves.push(onFulfilled);
+        return this;
+    } 
+//目前的 Promise 还存在一些问题，如果我传入的是一个不包含异步操作的函数，resolve就会先于 then 执行，也就是说 promise._resolves 是一个空数组。
+//为了解决这个问题，我们可以在 resolve 中添加 setTimeout，来将 resolve 中执行回调的逻辑放置到 JS 任务队列末尾
+    function resolve(value){
+        setTimeout(() => {
+            promise._resolves.forEach(function(callBack){
+                callBack(value);
+            })
+        }, 0);
+        
+    }
+
+    fn(resolve);
+}
+
+//加入状态
+
+function Promise(fn){
+    var promise = this,
+        value = null;
+        promise._resolves = [];
+        promise._status = 'PENDING';
+    
+    this.then = function(onFulfilled){
+        if(promise._status === 'PENDING'){
+            promise._resolves.push(onFulfilled);
+            return this;
+        }
+        onFulfilled(value);
+        return this;
+    }  
+
+    function resolve(value){
+        setTimeout(() => {
+            promise._status = 'FULFILLED';
+            promise._resolves.forEach(function(callBack){
+                callBack(value);
+            })
+        }, 0);
+    }
+
+    fn(resolve);
+
+}
+
+
 
 
