@@ -1,0 +1,50 @@
+/*
+@ 引入外部js方式
+ */
+第一种方式：利用Vue的mounted生命周期
+
+const oScript = document.createElement('script');
+oScript.type = 'text/javascript';
+oScript.src = '//g.alicdn.com/sd/smartCaptcha/0.0.1/index.js';
+document.body.appendChild(oScript);
+
+
+第二种方式：利用Vue的createElement方法
+
+components: {
+    'scriptLink': {
+      render(createElement) {
+        return createElement(
+          'script',
+          {
+            attrs: {
+              type: 'text/javascript',
+              src: '//g.alicdn.com/sd/smartCaptcha/0.0.1/index.js',
+            },
+          },
+        )
+      }
+    }
+  }
+
+然后通过<scriptLink></scriptLink>  引入到组件中
+
+
+第三种方封装一个remoteJs 组件
+
+<template>
+    <remote-js src="//g.alicdn.com/sd/smartCaptcha/0.0.1/index.js"></remote-js>
+</template>
+<script>
+export default {
+    components: {
+    'remote-js': {
+      render(createElement) {
+        return createElement('script', {attrs: {type: 'text/javascript', src: this.src}});
+      },
+      props: {
+        src: { type: String, required: true}
+      }
+    }
+  }
+}

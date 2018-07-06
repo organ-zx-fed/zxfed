@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<input type="button" value="获取" id="btn">
+<div id="box"></div>
+<script type="text/javascript">
+    let a = 10;
+    let b = 20;
+    var p1 = new Promise(function(resolve, reject){
+        if(a< b){
+            resolve(a)
+        }else{
+            reject(b)
+        }
+    })
+    p1.then(function(value){
+        console.log('成功了：'+value)
+        return value + 3;  //这里面可以再次处理逻辑
+    },function(value){
+        console.log('失败了：'+value)
+    }).then(function(value){
+        //上面处理完逻辑后结果
+        console.log(value)  //13
+    },function(value){
+        //失败后再次处理
+        console.log(value); //一般没用
+    })
+
+    // 做异步的传递方便 例子
+    const fs = require('fs');
+    fs.readFile('demo.html', function(err,data){
+        var p1 = new Promise(function(resolve, reject){
+            if(err){
+                reject(err)
+            }else{
+                resolve(data)
+            }
+        })
+
+        p1.then(function(value){
+            console.log('ok: '+value)
+        },function(value){
+            console.log('no: '+value)
+        })
+    })
+
+    //一个小案例
+    window.onload = function(){
+        var oBtn = document.getElementById('btn');
+        var oDiv = document.getElementById('box');
+
+        oBtn.onclick = function(){
+            //以前做法
+            ajax('a.txt', function(data){
+                console.log(data) //成功的返回
+            },function(err){
+                console.log(err) //失败的返回
+            })
+
+            // 利用promise 方式
+            let p1 = new Promise(function(resolve, reject){
+                ajax('a.txt', function(data){
+                    resolve(data)
+                },function(err){
+                    reject(err)
+                })
+            })
+            p1.then(function(data){
+                oBox.innerHTML = data;
+            },function(err){
+                oBox.innerHTML = err;
+            })
+        }
+    }
+
+</script>
+</body>
+</html>

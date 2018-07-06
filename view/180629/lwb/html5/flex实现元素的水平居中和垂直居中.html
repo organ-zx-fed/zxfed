@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<title>Document</title>
+<style type="text/css">
+*{margin:0;padding:0;}
+div{margin-bottom:10px;font-size:14px;}
+.flex1{
+    display:-webkit-box;
+    display:flex;
+    justify-content:center;
+    background:#eee;
+}
+.flex1 p{
+    padding:15px 0;
+
+}
+.flex2{
+    display:-webkit-box;
+    display:flex;
+    justify-content:center;
+    background:#eee;
+}
+.flex2 p{
+    padding:15px 0;
+
+}
+.flex3{
+    display:-webkit-box;
+    display:flex;
+    height:40px;
+    align-items: center;
+    background:#eee;
+}
+.flex3 p{
+    padding:15px 0;
+
+}
+.flex4{
+    display:-webkit-box;
+    display:flex;
+    height:40px;
+    align-items: center;
+    background:#eee;
+}
+.flex4 p{
+    -webkit-box-flex:1;
+    flex:1;
+    padding:10px 0;
+    border-right:1px solid #ccc;
+}
+.flex5{
+    display:flex;
+    /* height:200px; */
+    justify-content:center;
+    background:#eee;
+     flex-direction:column
+}
+.flex5 *{
+    display:flex;
+    justify-content:center;
+    padding:10px;
+    border:1px solid #000;
+}
+.flex6{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#eee;
+    flex-direction:column
+}
+.flex6 *{
+    display:flex;
+    justify-content:center;
+    width:200px;
+    border:1px solid #000;
+    padding:10px;
+}
+</style>
+</head>
+<body>
+<div class="flex1">
+    <p>标题  水平居中</p>
+</div>
+<div class="flex2">
+    <p>标题  多个水平居中</p>
+    <p>标题  多个水平居中</p>
+    <p>标题  多个水平居中</p>
+</div>
+<div class="flex3">
+    <p>我是标题  垂直居中</p>
+</div>
+<div class="flex4">
+    <p>标题  多个垂直居中</p>
+    <p>标题  多个垂直居中</p>
+    <p>标题  多个垂直居中</p>
+</div>
+<div class="flex5">
+    <p>标题  多个垂直居中</p>
+    <p>标题  多个垂直居中</p>
+    <p>标题  多个垂直居中</p>
+</div>
+<div class="flex6">
+    <p>标题  水平居中/垂直居中</p>
+    <p>标题  水平居中/垂直居中</p>
+    <p>标题  水平居中/垂直居中</p>
+</div>
+</body>
+</html>
